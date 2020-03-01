@@ -1,21 +1,16 @@
-class UI {
-    constructor() {
+export class Api{
 
-         // Iniciar el mapa
-         this.mapa = this.inicializarMapa();
+    // Este método se encarga de mostrar distintos datos acerca de las gasolineras
+    // del pais
+    async getGasolineEstablishmentsPrice(){
+        
+        const totalDataEntries = 100;   // Límita el total de resultados a 100
 
+        const gasolinePrice = await fetch(`https://api.datos.gob.mx/v1/precio.gasolina.publico?pageSize=${totalDataEntries}`);
+
+        const data = await gasolinePrice.json();
+
+        return data;
     }
 
-    inicializarMapa() {
-         // Inicializar y obtener la propiedad del mapa
-         const map = L.map('mapa').setView([19.390519, -99.3739778], 6);
-         const enlaceMapa = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-         L.tileLayer(
-             'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-             attribution: '&copy; ' + enlaceMapa + ' Contributors',
-             maxZoom: 18,
-             }).addTo(map);
-         return map;
-
-    }
 }
